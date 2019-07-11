@@ -1,16 +1,14 @@
 require("dotenv").config();
-const url = process.env.DB_URL;
+const dev = process.env.DB_URL_DEV;
+const prod = process.env.DB_URL_PROD;
 
 module.exports = {
 
   development: {
     client: "pg",
-    connection: url,
+    connection: dev,
     useNullAsDefault: true,
-    extra: {
-      ssl: true
-    },
-    debug: true
+    // debug: true
   },
 
 
@@ -31,12 +29,8 @@ module.exports = {
   },
 
   production: {
-    client: 'postgresql',
-    connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
-    },
+    client: 'pg',
+    connection: prod,
     pool: {
       min: 2,
       max: 10
