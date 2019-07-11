@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
     }
 })
 
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
     const { id } = req.params
 
     try {
@@ -31,7 +31,7 @@ router.get('/:id', (req, res) => {
 })
 
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     const howTo = req.body
     try {
         const newHowTo = await db.add(howTo)
@@ -45,7 +45,7 @@ router.post('/', (req, res) => {
     }
 })
 
-router.put('/', (req, res) => {
+router.put('/', async (req, res) => {
     const { howTo } = req.body
     try {
         const updatedHowTo = await db.update(howTo)
@@ -59,7 +59,7 @@ router.put('/', (req, res) => {
     }
 })
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
     const { id } = req.params
     try {
         const howTo = await db.remove(id)

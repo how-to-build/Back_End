@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
     }
 })
 
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
     const { id } = req.params
     
     try {
@@ -30,7 +30,7 @@ router.get('/:id', (req, res) => {
     }
 })
 
-router.get('/:username', (req, res) => {
+router.get('/:username', async (req, res) => {
     const { username } = req.params
     try {
         const user = await db.findByUser(username)
@@ -45,7 +45,7 @@ router.get('/:username', (req, res) => {
     }
 })
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     const user = req.body
     try {
         const newUser = await db.add(user)
@@ -59,8 +59,8 @@ router.post('/', (req, res) => {
     }
 })
 
-router.put('/', (req, res) => {
-    const { user }  
+router.put('/', async (req, res) => {
+    const { user } = req.body
     try {
         const updatedUser = await db.update(user)
         if(updatedUser){
@@ -73,7 +73,7 @@ router.put('/', (req, res) => {
     }
 })
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
     const { id } = req.params
     try {
         const user = await db.remove(id)

@@ -10,6 +10,10 @@ module.exports = {
 
 }
 
+function add(keyPoint) {
+    return db('KEY_POINTS').insert(keyPoint)
+}
+
 function find() {
     return db('KEY_POINTS')
 }

@@ -9,6 +9,10 @@ module.exports = {
   update
 };
 
+function add(reply) {
+  return db("REPLIES").insert(reply)
+}
+
 function find() {
   return db("REPLIES");
 }

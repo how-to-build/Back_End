@@ -9,6 +9,10 @@ module.exports = {
   update
 };
 
+function add(user) {
+  return db("USERS").insert(user)
+}
+
 function find() {
   return db("USERS");
 }

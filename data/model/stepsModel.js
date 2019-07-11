@@ -8,6 +8,10 @@ module.exports = {
   update
 };
 
+function add(step) {
+  return db("STEPS").insert(step)
+}
+
 function find() {
   return db("STEPS");
 }

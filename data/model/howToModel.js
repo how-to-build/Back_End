@@ -10,6 +10,10 @@ module.exports = {
 
 }
 
+function add(howTo) {
+    return db('HOW_TO').insert(howTo)
+}
+
 function find() {
     return db('HOW_TO')
 }
