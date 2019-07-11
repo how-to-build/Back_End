@@ -10,6 +10,10 @@ module.exports = {
 
 }
 
+function add(comment) {
+    return db('COMMENTS').insert(comment)
+}
+
 function find() {
     return db('COMMENTS')
 }

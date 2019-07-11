@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
     }
 })
 
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
     const { id } = req.params
 
     try {
@@ -31,7 +31,7 @@ router.get('/:id', (req, res) => {
 })
 
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     const keyPoint = req.body
     try {
         const newKeyPoint = await db.add(keyPoint)
@@ -45,7 +45,7 @@ router.post('/', (req, res) => {
     }
 })
 
-router.put('/', (req, res) => {
+router.put('/', async (req, res) => {
     const { keyPoint } = req.body
     try {
         const updatedKeyPoint = await db.update(keyPoint)
@@ -59,7 +59,7 @@ router.put('/', (req, res) => {
     }
 })
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
     const { id } = req.params
     try {
         const keyPoint = await db.remove(id)
