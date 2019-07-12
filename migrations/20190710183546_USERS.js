@@ -1,7 +1,7 @@
 const USERS = 'USERS'
 
 exports.up = async function(knex) {
-    knex.schema.createTable(USERS, tbl => {
+    await knex.schema.createTable(USERS, tbl => {
         tbl.increments()
         tbl.string('first_name').notNullable()
         tbl.string('last_name').notNullable()
@@ -20,5 +20,5 @@ exports.up = async function(knex) {
 }
 
 exports.down = async function(knex) {
-    knex.schema.dropTableIfExists(USERS)
+    await knex.schema.dropTableIfExists(USERS)
 }

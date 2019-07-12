@@ -8,7 +8,7 @@ module.exports = {
     client: "pg",
     connection: dev,
     useNullAsDefault: true,
-    // debug: true
+    debug: true
   },
 
 

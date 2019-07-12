@@ -7,6 +7,7 @@ const repliesRoutes = require('./routes/replies')
 const keyPointsRoutes = require('./routes/keyPoints')
 const howTosRoutes = require('./routes/howTos')
 const commentsRoutes = require('./routes/comments')
+const loginRoutes = require('./routes/login')
 
 const server = express()
 
@@ -19,7 +20,7 @@ server.use(cors())
 // server.use('/api/keyPoints', keyPointsRoutes)
 // server.use('/api/howTos', howTosRoutes)
 // server.use('/api/comments', commentsRoutes)
-
+server.use('/api/login', loginRoutes)
 
 server.get('/', (req, res) => {
     res.json({ message: 'You reached the api'})
