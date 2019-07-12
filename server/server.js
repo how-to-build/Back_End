@@ -11,9 +11,6 @@ const loginRoutes = require("./routes/login");
 const signUpRoutes = require("./routes/signup");
 const restricted = require("../data/middleware/restricted");
 
-
-const restricted = require('../data/middleware/restricted')
-
 const server = express()
 
 
