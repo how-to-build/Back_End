@@ -2,7 +2,7 @@ const STEPS = 'STEPS'
 const HOW_TO = 'HOW_TO'
 
 exports.up = async function(knex) {
-    knex.schema.createTable(STEPS, tbl => {
+    await knex.schema.createTable(STEPS, tbl => {
         tbl.increments()
         tbl.string('title').notNullable()
         tbl.string('description').notNullable()
@@ -19,5 +19,5 @@ exports.up = async function(knex) {
 }
 
 exports.down = async function(knex) {
-    knex.schema.dropTableIfExists(STEPS)
+    await knex.schema.dropTableIfExists(STEPS)
 }

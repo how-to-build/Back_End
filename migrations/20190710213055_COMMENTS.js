@@ -3,7 +3,7 @@ const USERS = 'USERS'
 const HOW_TO = 'HOW_TO'
 
 exports.up = async function(knex) {
-    knex.schema.createTable(COMMENTS, tbl => {
+    await knex.schema.createTable(COMMENTS, tbl => {
         tbl.increments()
         tbl.string('comment').notNullable()
         tbl.integer('likes')
@@ -25,5 +25,5 @@ exports.up = async function(knex) {
 }
 
 exports.down = async function(knex) {
-    knex.schema.dropTableIfExists(COMMENTS)
+    await knex.schema.dropTableIfExists(COMMENTS)
 }
