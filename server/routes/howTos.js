@@ -7,12 +7,12 @@ router.get("/", async (req, res) => {
   try {
     const allHowTos = await db.find();
     if (allHowTos) {
-      res.json({ message: "List of how tos" }, allHowTos);
+      res.json({ message: "List of how tos", allHowTos});
     } else {
       res.status(404).json({ message: "No how tos found" });
     }
   } catch (error) {
-    res.status(500).json({ message: "Internal server error" }, error);
+    res.status(500).json({ message: "Internal server error", error});
   }
 });
 
@@ -21,13 +21,14 @@ router.get("/:id", async (req, res) => {
 
   try {
     const howTos = await db.findById(id);
+    console.log('****HowTo****', howTos)
     if (howTos) {
-      res.json({ message: `How tos with id of ${id}` }, howTos);
+      res.json({ message: `How tos with id of ${id}`, howTos });
     } else {
       res.status(404).json({ message: "No howTos found with that id" });
     }
   } catch (error) {
-    res.status(500).json({ message: "Internal server error" }, error);
+    res.status(500).json({ message: "Internal server error", error });
   }
 });
 
@@ -38,37 +39,44 @@ router.post("/", async (req, res) => {
   try {
     const { id } = await usersdb.findByUser(req.token.username);
     const addedHowTo = await db.add({ ...howTo, user_id: id });
-    res.json({ message: "added howto", addedHowTo });
+    res.json({ message: "added how to", addedHowTo });
   } catch (error) {
     res.status(500).json({ message: "internal server error" });
   }
 });
 
-router.put("/", async (req, res) => {
+router.put("/:id", async (req, res) => {
+  const { id } = req.params
   const { howTo } = req.body;
+
+  console.log("ID", id)
+  console.log("HowTo", howTo)
+
   try {
-    const updatedHowTo = await db.update(howTo);
+    const updatedHowTo = await db.update(id, howTo);
+    console.log(updatedHowTo)
     if (updatedHowTo) {
       res.json({ message: `Updated how to` });
     } else {
       res.status(403).json({ message: "Bad request" });
     }
   } catch (error) {
-    res.status(500).json({ message: "Internal server error" }, error);
+    res.status(500).json({ message: "Internal server error", error });
   }
 });
 
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
+
   try {
     const howTo = await db.remove(id);
     if (howTo) {
-      res.json({ message: `How to removed` });
+      res.json({ message: `How to removed with id ${id}` });
     } else {
       res.status(403).json({ message: `Bad request` });
     }
   } catch (error) {
-    res.status(500).json({ message: "Internal server error" }, error);
+    res.status(500).json({ message: "Internal server error", error });
   }
 });
 
