@@ -6,7 +6,7 @@ module.exports = async (req, res, next) => {
 
    try {
        if (username && password) {
-           const user = await db.findByUser({ username })
+           const user = await db.findByUser(username)
             if ( user && bcrypt.compareSync(password, user.password)) {
                 next()
             } else {
@@ -16,6 +16,6 @@ module.exports = async (req, res, next) => {
            res.status(400).json({ message: 'No credentials provided'})
        }
    } catch (error) {
-       res.status(500).json({ message: 'Internal server error'}, error)
+       res.status(500).json({ message: 'Internal server error', error })
    }
 }
