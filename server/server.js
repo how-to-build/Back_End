@@ -9,6 +9,8 @@ const howTosRoutes = require('./routes/howTos')
 const commentsRoutes = require('./routes/comments')
 const loginRoutes = require('./routes/login')
 
+const restricted = require('../data/middleware/restricted')
+
 const server = express()
 
 server.use(express.json())
@@ -22,7 +24,7 @@ server.use(cors())
 // server.use('/api/comments', commentsRoutes)
 server.use('/api/login', loginRoutes)
 
-server.get('/', (req, res) => {
+server.get('/', restricted, (req, res) => {
     res.json({ message: 'You reached the api'})
 })
 
