@@ -11,7 +11,11 @@ const loginRoutes = require("./routes/login");
 const signUpRoutes = require("./routes/signup");
 const restricted = require("../data/middleware/restricted");
 
-const server = express();
+
+const restricted = require('../data/middleware/restricted')
+
+const server = express()
+
 
 server.use(express.json());
 server.use(helmet());
@@ -25,8 +29,10 @@ server.use("/api/howTos", restricted, howTosRoutes);
 server.use("/api/login", loginRoutes);
 server.use("/api/signup", signUpRoutes);
 
+
 server.get("/", restricted, (req, res) => {
   res.json({ message: "You reached the api" });
 });
+
 
 module.exports = server;
