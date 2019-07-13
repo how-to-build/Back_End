@@ -47,7 +47,6 @@ router.post("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
   const keyPoint = req.body;
-  console.log("**********", id, keyPoint);
   try {
     const updatedKeyPoint = await db.update(id, keyPoint);
     if (updatedKeyPoint) {

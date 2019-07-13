@@ -7,12 +7,27 @@ router.get("/", async (req, res) => {
   try {
     const allHowTos = await db.find();
     if (allHowTos) {
-      res.json({ message: "List of how tos", allHowTos});
+      res.json({ message: "List of how tos", allHowTos });
     } else {
       res.status(404).json({ message: "No how tos found" });
     }
   } catch (error) {
-    res.status(500).json({ message: "Internal server error", error});
+    res.status(500).json({ message: "Internal server error", error });
+  }
+});
+
+router.get("/all/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const howTos = await db.findAllDataById(id);
+    if (howTos) {
+      res.json({ message: `How tos with id of ${id}`, howTos });
+    } else {
+      res.status(404).json({ message: "No howTos found with that id" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error", error });
   }
 });
 
@@ -21,7 +36,6 @@ router.get("/:id", async (req, res) => {
 
   try {
     const howTos = await db.findById(id);
-    console.log('****HowTo****', howTos)
     if (howTos) {
       res.json({ message: `How tos with id of ${id}`, howTos });
     } else {
@@ -46,15 +60,11 @@ router.post("/", async (req, res) => {
 });
 
 router.put("/:id", async (req, res) => {
-  const { id } = req.params
-  const { howTo } = req.body;
-
-  console.log("ID", id)
-  console.log("HowTo", howTo)
+  const { id } = req.params;
+  const howTo = req.body;
 
   try {
     const updatedHowTo = await db.update(id, howTo);
-    console.log(updatedHowTo)
     if (updatedHowTo) {
       res.json({ message: `Updated how to` });
     } else {

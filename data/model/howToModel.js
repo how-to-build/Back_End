@@ -6,13 +6,14 @@ module.exports = {
   findByUser,
   findById,
   remove,
-  update
+  update,
+  findAllDataById
 };
 
 function add(howTo) {
   return db("HOW_TO")
     .insert(howTo)
-    .returning("id");
+    .returning("*");
 }
 
 function find() {
@@ -25,10 +26,27 @@ function findByUser(howTo) {
     .first();
 }
 
-function findById(id) {
-  return db("HOW_TO")
+async function findById(id) {
+  const howTo = await db("HOW_TO")
     .where({ id })
     .first();
+  return howTo;
+}
+
+async function findAllDataById(id) {
+  const howTo = await db("HOW_TO")
+    .where({ id })
+    .first();
+  const comments = await db("COMMENTS").where("how_to_id", id);
+
+  for (let comment in comments) {
+    const searchComment = comments[comment].id;
+    const replies = await db("REPLIES").where("comment_id", searchComment);
+    comments[comment].replies = replies;
+  }
+
+  howTo.comments = comments;
+  return howTo;
 }
 
 function remove(id) {
@@ -37,8 +55,12 @@ function remove(id) {
     .del();
 }
 
-function update(id, howTo) {
+async function update(id, howTo) {
+  const currentData = await findById(id);
+  console.log(howTo);
+  const updated = { ...currentData, ...howTo };
+  console.log(updated);
   return db("HOW_TO")
     .where({ id })
-    .update(howTo);
+    .update({ ...currentData, howTo });
 }
