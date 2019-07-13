@@ -10,7 +10,7 @@ module.exports = {
 };
 
 function add(reply) {
-  return db("REPLIES").insert(reply)
+  return db("REPLIES").insert(reply);
 }
 
 function find() {
@@ -30,11 +30,13 @@ function findById(id) {
 }
 
 function remove(id) {
-  return db("REPLIES").delete(id);
+  return db("REPLIES")
+    .where({ id })
+    .del();
 }
 
 function update(id, reply) {
   return db("REPLIES")
     .where({ id })
-    .insert(reply);
+    .update(reply);
 }
