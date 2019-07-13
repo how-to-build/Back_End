@@ -45,13 +45,9 @@ async function findById(id) {
 }
 
 async function findAllDataById(id) {
-  // const howTo = await db("HOW_TO")
-  //   .where({ id })
-  //   .first();
-
   const howTo = await findById(id);
-
   const comments = await db("COMMENTS").where("how_to_id", id);
+  const steps = await db("STEPS").where("how_to_id", id);
 
   for (let comment in comments) {
     const searchComment = comments[comment].id;
@@ -59,7 +55,14 @@ async function findAllDataById(id) {
     comments[comment].replies = replies;
   }
 
+  for (let step in steps) {
+    const searchStep = steps[step].id;
+    const keyPoints = await db("KEY_POINTS").where("step_id", searchStep);
+    steps[step].replies = replies;
+  }
+
   howTo.comments = comments;
+  howTo.steps = steps;
   return howTo;
 }
 
