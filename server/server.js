@@ -19,7 +19,7 @@ server.use(cors());
 server.use("/api/users", usersRoutes);
 server.use("/api/steps", stepsRoutes);
 server.use("/api/replies", repliesRoutes);
-// server.use('/api/keyPoints', keyPointsRoutes)
+server.use("/api/keyPoints", keyPointsRoutes);
 server.use("/api/howTos", restricted, howTosRoutes);
 server.use("/api/comments", commentsRoutes);
 server.use("/api/login", loginRoutes);
