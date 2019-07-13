@@ -10,7 +10,7 @@ module.exports = {
 };
 
 function add(user) {
-  return db("USERS").insert(user)
+  return db("USERS").insert(user);
 }
 
 function find() {
@@ -33,9 +33,11 @@ function remove(id) {
   return db("USERS").delete(id);
 }
 
-function update(user) {
-  const { id } = user;
+async function update(id, user) {
+  const currentInfo = await findById(id);
+
   return db("USERS")
     .where({ id })
-    .insert(user);
+    .update({ ...currentInfo, ...user })
+    .returning("*");
 }

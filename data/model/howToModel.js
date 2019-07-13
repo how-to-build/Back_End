@@ -71,9 +71,6 @@ function remove(id) {
 
 async function update(id, howTo) {
   const currentData = await findById(id);
-  console.log(howTo);
-  const updated = { ...currentData, ...howTo };
-  console.log(updated);
   return db("HOW_TO")
     .where({ id })
     .update({ ...currentData, howTo });

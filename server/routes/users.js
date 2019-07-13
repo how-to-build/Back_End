@@ -48,6 +48,9 @@ router.get("/:username", async (req, res) => {
 
 router.post("/", async (req, res) => {
   const user = req.body;
+
+  // check to see if user exists
+
   try {
     const newUser = await db.add(user);
     if (newUser) {
@@ -63,12 +66,19 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/", async (req, res) => {
-  const { user } = req.body;
+router.put("/:id", async (req, res) => {
+  const user = req.body;
+  const { id } = req.params;
   try {
-    const updatedUser = await db.update(user);
+    if (user.username) {
+      const userExists = await db.findByUser(user.username);
+      if (userExists) {
+        res.status(409).json({ message: "conflict, user exists" });
+      }
+    }
+    const [updatedUser] = await db.update(id, user);
     if (updatedUser) {
-      res.json({ message: `Updated user: ${user.username}` });
+      res.json({ message: `Updated user: ${updatedUser.username}` });
     } else {
       res.status(403).json({ message: "Bad request" });
     }
