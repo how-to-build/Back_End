@@ -5,7 +5,7 @@ exports.up = async function(knex) {
     await knex.schema.createTable(STEPS, tbl => {
         tbl.increments()
         tbl.string('title').notNullable()
-        tbl.string('description').notNullable()
+        tbl.text('description').notNullable()
         tbl.string('image')
 
         tbl.integer('how_to_id')

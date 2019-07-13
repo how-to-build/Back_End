@@ -4,7 +4,7 @@ const STEPS = 'STEPS'
 exports.up = async function(knex) {
     await knex.schema.createTable(KEY_POINTS, tbl => {
         tbl.increments()
-        tbl.string('description').notNullable()
+        tbl.text('description').notNullable()
         tbl.integer('step_id')
             .unsigned()
             .notNullable()
