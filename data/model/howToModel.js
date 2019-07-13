@@ -58,7 +58,7 @@ async function findAllDataById(id) {
   for (let step in steps) {
     const searchStep = steps[step].id;
     const keyPoints = await db("KEY_POINTS").where("step_id", searchStep);
-    steps[step].replies = replies;
+    steps[step].keyPoints = keyPoints;
   }
 
   howTo.comments = comments;
