@@ -32,11 +32,13 @@ function findById(id) {
 }
 
 function remove(id) {
-  return db("HOW_TO").where({ id }).del();
+  return db("HOW_TO")
+    .where({ id })
+    .del();
 }
 
 function update(id, howTo) {
   return db("HOW_TO")
     .where({ id })
-    .insert(howTo);
+    .update(howTo);
 }

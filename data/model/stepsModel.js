@@ -9,7 +9,7 @@ module.exports = {
 };
 
 function add(step) {
-  return db("STEPS").insert(step)
+  return db("STEPS").insert(step);
 }
 
 function find() {
@@ -23,11 +23,13 @@ function findById(id) {
 }
 
 function remove(id) {
-  return db("STEPS").delete(id);
+  return db("STEPS")
+    .where({ id })
+    .del();
 }
 
 function update(id, step) {
   return db("STEPS")
     .where({ id })
-    .insert(step);
+    .update(step);
 }
