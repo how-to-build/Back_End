@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../../data/model/howToModel");
 const usersdb = require("../../data/model/usersModel");
+const restricted = require('../../data/middleware/restricted')
 
 router.get("/", async (req, res) => {
   try {
@@ -31,7 +32,7 @@ router.get("/all/:id", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", restricted, async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -46,7 +47,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", restricted, async (req, res) => {
   // { id, title, description, likes, user_id }
   const howTo = req.body;
 
@@ -59,7 +60,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", restricted, async (req, res) => {
   const { id } = req.params;
   const howTo = req.body;
 
@@ -75,7 +76,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", restricted, async (req, res) => {
   const { id } = req.params;
 
   try {
