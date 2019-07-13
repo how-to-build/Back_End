@@ -49,7 +49,6 @@ router.get("/:username", async (req, res) => {
 router.post("/", async (req, res) => {
   const user = req.body;
 
-  // check to see if user exists
 
   try {
     const newUser = await db.add(user);
