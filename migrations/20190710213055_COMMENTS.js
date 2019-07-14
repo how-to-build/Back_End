@@ -5,7 +5,7 @@ const HOW_TO = 'HOW_TO'
 exports.up = async function(knex) {
     await knex.schema.createTable(COMMENTS, tbl => {
         tbl.increments()
-        tbl.string('comment').notNullable()
+        tbl.text('comment').notNullable()
         tbl.integer('likes')
             .notNullable()
             .defaultTo(0)
