@@ -25,7 +25,7 @@ server.use("/api/comments", restricted, commentsRoutes);
 server.use("/api/login", loginRoutes);
 server.use("/api/signup", signUpRoutes);
 
-server.get("/, (req, res) => {
+server.get("/", (req, res) => {
   res.json({ message: "You reached the Ho-To-Build api" });
 });
 

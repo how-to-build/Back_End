@@ -6,24 +6,12 @@ router.get("/", async (req, res) => {
   try {
     const allUsers = await db.find();
     if (allUsers) {
+      for (let user in allUsers) {
+        allUsers[user].password = "";
+      }
       res.json({ message: "List of users", allUsers });
     } else {
       res.status(404).json({ message: "No users found" });
-    }
-  } catch (error) {
-    res.status(500).json({ message: "Internal server error", error });
-  }
-});
-
-router.get("/:id", async (req, res) => {
-  const { id } = req.params;
-
-  try {
-    const user = await db.findById(id);
-    if (user) {
-      res.json({ message: `User with id of ${id}`, user });
-    } else {
-      res.status(404).json({ message: "No user found with that id" });
     }
   } catch (error) {
     res.status(500).json({ message: "Internal server error", error });
@@ -34,6 +22,7 @@ router.get("/:username", async (req, res) => {
   const { username } = req.params;
   try {
     const user = await db.findByUser(username);
+    user.password = "";
     if (user) {
       res.json({ message: `User with username ${username}`, user });
     } else {
@@ -48,7 +37,6 @@ router.get("/:username", async (req, res) => {
 
 router.post("/", async (req, res) => {
   const user = req.body;
-
 
   try {
     const newUser = await db.add(user);
