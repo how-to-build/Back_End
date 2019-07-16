@@ -9,8 +9,8 @@ router.post("/", async (req, res) => {
   const credentials = req.body;
 
   try {
-    if (credentials.username && credentials.password) {
-      const user = await db.findByUser(credentials.username);
+    if (credentials.email && credentials.password) {
+      const user = await db.findByEmail(credentials.email);
       const comparePass = await bcrypt.compareSync(
         credentials.password,
         user.password
