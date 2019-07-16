@@ -22,7 +22,7 @@ router.post("/", async (req, res) => {
       res.status(403).json({ message: "Please provide credentials" });
     }
   } catch (error) {
-    res.status(500).json({ message: "Internal Server error" });
+    res.status(500).json({ message: "Internal Server error", error });
   }
 });
 
