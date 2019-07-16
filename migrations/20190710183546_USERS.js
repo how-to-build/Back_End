@@ -3,8 +3,6 @@ const USERS = 'USERS'
 exports.up = async function(knex) {
     await knex.schema.createTable(USERS, tbl => {
         tbl.increments()
-        tbl.string('first_name').notNullable()
-        tbl.string('last_name').notNullable()
         tbl.string('email')
             .notNullable()
             .unique()

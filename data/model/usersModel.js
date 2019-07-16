@@ -10,7 +10,7 @@ module.exports = {
 };
 
 function add(user) {
-  return db("USERS").insert(user);
+  return (test = db("USERS").insert(user));
 }
 
 function find() {
