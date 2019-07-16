@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
   const credentials = req.body;
+  console.log("!!!!!!!!!!!!!!", credentials);
 
   try {
     if (credentials.username && credentials.password) {
