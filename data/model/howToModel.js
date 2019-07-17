@@ -17,7 +17,18 @@ function add(howTo) {
 }
 
 function find() {
-  return db("HOW_TO");
+  return db("HOW_TO")
+    .join("USERS", "HOW_TO.id", "=", "USERS.id")
+    .select(
+      "USERS.id as userId",
+      "USERS.role",
+      "USERS.avatar",
+      "USERS.username",
+      "HOW_TO.id as howToId",
+      "HOW_TO.title",
+      "HOW_TO.description",
+      "HOW_TO.likes"
+    );
 }
 
 function findByUser(howTo) {

@@ -38,7 +38,7 @@ router.get("/byID/:id", async (req, res) => {
 router.get("/:username", async (req, res) => {
   const { username } = req.params;
   try {
-    const user = await db.findByUser(username);
+    const user = await db.findByUsername(username);
     user.password = "";
     if (user) {
       res.json({ message: `User with username ${username}`, user });
