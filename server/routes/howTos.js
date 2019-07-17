@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../../data/model/howToModel");
 const usersdb = require("../../data/model/usersModel");
-const restricted = require('../../data/middleware/restricted')
+const restricted = require("../../data/middleware/restricted");
 
 router.get("/", async (req, res) => {
   try {
@@ -52,11 +52,11 @@ router.post("/", restricted, async (req, res) => {
   const howTo = req.body;
 
   try {
-    const { id } = await usersdb.findByUser(req.token.username);
+    const { id } = await usersdb.findByUsername(req.token.username);
     const addedHowTo = await db.add({ ...howTo, user_id: id });
     res.json({ message: "added how to", addedHowTo });
   } catch (error) {
-    res.status(500).json({ message: "internal server error" });
+    res.status(500).json({ message: "internal server error", error });
   }
 });
 
