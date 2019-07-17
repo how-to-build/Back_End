@@ -18,6 +18,23 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/byID/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const user = await db.findById(id);
+    user.password = "";
+    if (user) {
+      res.json({ message: `User with id ${id}`, user });
+    } else {
+      res
+        .status(404)
+        .json({ message: `No user found with id: ${id}` });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error", error });
+  }
+});
+
 router.get("/:username", async (req, res) => {
   const { username } = req.params;
   try {
