@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../../data/model/usersModel");
+const bcrypt = require("bcrypt");
 
 router.get("/", async (req, res) => {
   try {
@@ -26,9 +27,7 @@ router.get("/byID/:id", async (req, res) => {
     if (user) {
       res.json({ message: `User with id ${id}`, user });
     } else {
-      res
-        .status(404)
-        .json({ message: `No user found with id: ${id}` });
+      res.status(404).json({ message: `No user found with id: ${id}` });
     }
   } catch (error) {
     res.status(500).json({ message: "Internal server error", error });
@@ -71,20 +70,33 @@ router.post("/", async (req, res) => {
 });
 
 router.put("/:id", async (req, res) => {
-  const user = req.body;
+  const user = req.body; //email password newPassword
   const { id } = req.params;
   try {
-    if (user.username) {
-      const userExists = await db.findByUser(user.username);
-      if (userExists) {
-        res.status(409).json({ message: "conflict, user exists" });
+    if (user.email) {
+      const { username, password } = await db.findByEmail(user.email);
+
+      if (user.newPassword) {
+        const comparePass = await bcrypt.compareSync(user.password, password);
+
+        if (comparePass) {
+          newHash = bcrypt.hashSync(user.newPassword, 14);
+          user.password = newHash;
+          delete user.newPassword;
+          const [updatedUser] = await db.update(id, user);
+          res.json({ message: `Password updated for: ${username}` });
+        } else {
+          res.status(403).json({ message: "Incorrect password" });
+        }
+      } else {
+        delete user.password;
+        const [updatedUser] = await db.update(id, user);
+        if (updatedUser) {
+          res.json({ message: `Updated user: ${updatedUser.username}` });
+        } else {
+          res.status(403).json({ message: "Bad request" });
+        }
       }
-    }
-    const [updatedUser] = await db.update(id, user);
-    if (updatedUser) {
-      res.json({ message: `Updated user: ${updatedUser.username}` });
-    } else {
-      res.status(403).json({ message: "Bad request" });
     }
   } catch (error) {
     res.status(500).json({ message: "Internal server error", error });
