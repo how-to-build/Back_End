@@ -73,7 +73,7 @@ router.put("/:id", async (req, res) => {
   const user = req.body; //email password newPassword
   const { id } = req.params;
   try {
-    if (user.email) {
+    if (id) {
       const { username, password } = await db.findById(id);
 
       if (user.newPassword) {
