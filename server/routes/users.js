@@ -74,7 +74,7 @@ router.put("/:id", async (req, res) => {
   const { id } = req.params;
   try {
     if (user.email) {
-      const { username, password } = await db.findByEmail(user.email);
+      const { username, password } = await db.findById(id);
 
       if (user.newPassword) {
         const comparePass = await bcrypt.compareSync(user.password, password);
