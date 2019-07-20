@@ -18,7 +18,11 @@ router.post("/", async (req, res) => {
 
       if (user && comparePass) {
         const token = await generateToken(user);
-        res.json({ message: "You have a token", token, username: credentials.username });
+        res.json({
+          message: "You have a token",
+          token,
+          username: user.username
+        });
       } else {
         res.status(403).json({
           message: "invalid credentials"
