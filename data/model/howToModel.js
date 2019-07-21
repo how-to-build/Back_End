@@ -39,7 +39,7 @@ function findByUser(howTo) {
 
 async function findById(id) {
   const howTo = await db("HOW_TO")
-    .join("USERS", "HOW_TO.id", "=", "USERS.id")
+    .join("USERS", "HOW_TO.user_id", "=", "USERS.id")
     .select(
       "USERS.id as userId",
       "USERS.role",
