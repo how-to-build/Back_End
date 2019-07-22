@@ -32,9 +32,9 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const step = req.body;
+  const { steps, howtoId } = req.body;
   try {
-    const newStep = await db.add(step);
+    const newStep = await db.add(howtoId, steps);
     if (newStep) {
       res.json({ message: `Step added successfully`, newStep });
     } else {
