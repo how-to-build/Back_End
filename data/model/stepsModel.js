@@ -8,8 +8,15 @@ module.exports = {
   update
 };
 
-function add(step) {
-  return db("STEPS").insert(step);
+function add(how_to_id, steps) {
+  const correctSteps = steps.map(step => {
+    return {
+      ...step,
+      how_to_id
+    };
+  });
+  console.log(correctSteps);
+  return db("STEPS").insert(correctSteps);
 }
 
 function find() {
