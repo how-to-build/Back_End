@@ -11,7 +11,8 @@ module.exports = {
 function add(how_to_id, steps) {
   const correctSteps = steps.map(step => {
     return {
-      ...step,
+      title: step.title,
+      description: step.description,
       how_to_id
     };
   });
