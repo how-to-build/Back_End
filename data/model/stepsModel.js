@@ -15,7 +15,6 @@ function add(how_to_id, steps) {
       how_to_id
     };
   });
-  console.log(correctSteps);
   return db("STEPS").insert(correctSteps);
 }
 
